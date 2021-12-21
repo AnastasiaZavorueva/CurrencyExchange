@@ -1,6 +1,6 @@
 import telebot
 from config import keys, TOKEN
-from extensions import ConvertionException, CryptoConverter
+from extensions import APIException, CryptoConverter
 
 
 
@@ -11,7 +11,7 @@ bot = telebot.TeleBot(TOKEN)
 
 @bot.message_handler(commands=['start' , 'help'])
 def start_help(message: telebot.types.Message):
-    text = 'Для начала работы введите команду в следующем формате (через пробел): \n- <Название валюты, цену которой Вы хотите узнать>  \n- <Название валюты, в которой Вы хотите узнать цену первой валюты> \n- <Количество первой валюты> \n \
+    text = 'Приветствую Вас в конвертере валют! Для начала работы введите команду в следующем формате (через пробел): \n- <Название валюты, цену которой Вы хотите узнать>  \n- <Название валюты, в которой Вы хотите узнать цену первой валюты> \n- <Количество первой валюты> \n \
 Список доступных валют: /values'
 
     bot.reply_to(message, text)
@@ -30,11 +30,11 @@ def convert(message: telebot.types.Message):
         values = message.text.split(' ')
 
         if len(values) != 3:
-            raise ConvertionException('Слишком много параметров.')
+            raise APIException('Неверно введены параметры')
 
         base, quote, amount = values
-        total_base = CryptoConverter.convert(base, quote, amount)
-    except ConvertionException as e:
+        total_base = CryptoConverter.get_price(base, quote, amount)
+    except APIException as e:
         bot.reply_to(message, f'Ошибка пользователя. \n{e}')
     
     except Exception as e:
