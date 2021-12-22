@@ -8,16 +8,22 @@ class APIException(Exception):
 class CryptoConverter:
     @staticmethod
     def get_price(base: str, quote: str, amount: str):
-        if quote == base:
-            raise APIException(f'Введите различные валюты. Вы ввели одинаковые: {base}.')
-        try:
-             base_ticker = keys[base]
+        if  base_ticker = keys[base]
         except KeyError:
             raise APIException(f'Не удалось обработать валюту {base}')
         try:
              quote_ticker = keys[quote]
         except KeyError:
             raise APIException(f'Не удалось обработать валюту {quote}')
+        try:
+            quote == base:
+            raise APIException(f'Введите различные валюты. Вы ввели одинаковые: {base}.')           
+        
+        
+        
+       
+        
+            
        
         
         try:
