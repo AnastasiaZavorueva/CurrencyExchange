@@ -8,28 +8,39 @@ class APIException(Exception):
 class CryptoConverter:
     @staticmethod
     def get_price(base: str, quote: str, amount: str):
-        if  base_ticker = keys[base]
+        # if quote == base and quote in keys.values() and base in keys.values():
+        #     raise APIException(f'Введите различные валюты. Вы ввели одинаковые: {base}.')
+        # try:
+        #      base_ticker = keys[base]
+        # except KeyError:
+        #     raise APIException(f'Не удалось обработать валюту {base}')
+        # try:
+        #      quote_ticker = keys[quote]
+        # except KeyError:
+        #     raise APIException(f'Не удалось обработать валюту {quote}')
+        try:
+             base_ticker = keys[base]
         except KeyError:
             raise APIException(f'Не удалось обработать валюту {base}')
         try:
              quote_ticker = keys[quote]
         except KeyError:
             raise APIException(f'Не удалось обработать валюту {quote}')
-        try:
-            quote == base:
-            raise APIException(f'Введите различные валюты. Вы ввели одинаковые: {base}.')           
-        
-        
-        
-       
-        
-            
-       
+        if quote == base and quote:
+            raise APIException(f'Введите различные валюты. Вы ввели одинаковые: {base}.')
         
         try:
              amount = float(amount) 
+             
+        #    Это попытка поймать ввод слишком большого числа
+        # except OverflowError:
+        #     raise APIException(f'Слишком большое число')
         except ValueError:
             raise APIException(f'Не удалось обработать количество {amount}')
+        if amount < 0:
+            raise APIException(f'Отрицательное количество валюты. Попробуйте еще раз')
+        if amount == float('inf'):
+            raise APIException(f'Вы ввели недопустимо длинное число')
 
 
         r = requests.get(f'https://min-api.cryptocompare.com/data/price?fsym={base_ticker}&tsyms={quote_ticker}')
