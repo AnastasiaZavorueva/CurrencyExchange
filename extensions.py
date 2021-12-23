@@ -8,16 +8,7 @@ class APIException(Exception):
 class CryptoConverter:
     @staticmethod
     def get_price(base: str, quote: str, amount: str):
-        # if quote == base and quote in keys.values() and base in keys.values():
-        #     raise APIException(f'Введите различные валюты. Вы ввели одинаковые: {base}.')
-        # try:
-        #      base_ticker = keys[base]
-        # except KeyError:
-        #     raise APIException(f'Не удалось обработать валюту {base}')
-        # try:
-        #      quote_ticker = keys[quote]
-        # except KeyError:
-        #     raise APIException(f'Не удалось обработать валюту {quote}')
+        
         try:
              base_ticker = keys[base]
         except KeyError:
@@ -32,9 +23,7 @@ class CryptoConverter:
         try:
              amount = float(amount) 
              
-        #    Это попытка поймать ввод слишком большого числа
-        # except OverflowError:
-        #     raise APIException(f'Слишком большое число')
+        
         except ValueError:
             raise APIException(f'Не удалось обработать количество {amount}')
         if amount < 0:
